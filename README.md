@@ -13,8 +13,4 @@
 - `zod` for validation
 - `styled-components` for styling
 - `storybook` for creating components in isolation
-- `tailwind`
 - `react-query`
-- `radix-ui`
-- `cypress`
-- `react-hook-form`
