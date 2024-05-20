@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const MenuItem = styled(Link)`
   display: flex;
   align-items: center;
+  color: #677B92;
+  text-decoration: none;
 `;
 
 const Menu = styled.div`
@@ -12,7 +14,7 @@ const Menu = styled.div`
   flex-direction: column;
   padding: var(--space-2);
   gap: var(--space-2);
-  background-color: var(--color-secondary-100);
+  background-color: #131B24;
 `
 
 export const SideMenu = () => {

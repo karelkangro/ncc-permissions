@@ -7,5 +7,5 @@ export const AppContainer = styled.div`
   min-height: 100vh;
   font-family: var(--font-family-body);
   color: var(--color-primary);
-  background-color: var(--color-primary-100);
+  background-color: #0D131B;
 `;

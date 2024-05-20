@@ -47,7 +47,7 @@ export const BaseStyles = createGlobalStyle`
 
     /** Border **/
     --border-width: 1px;
-    --border-color: grey;
+    --border-color: black;
     --border-radius: var(--radius-2xs);
     --border-color-input-error: var(--color-input-error);
     --border-color-input-warning: var(--color-input-warning);

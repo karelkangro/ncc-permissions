@@ -32,6 +32,7 @@ export type BaseThemeType = {
   '--color-secondary-700': string;
   '--color-secondary-800': string;
   '--color-secondary-900': string;
+  '--color-text': string;
   '--color-success': string;
   '--color-danger': string;
   '--color-info': string;
@@ -47,28 +48,32 @@ export const lightTheme = css`
     --color-primary-100: #D6C4F7;
     --color-primary-500: #703BCB;
 
-    --color-secondary: #7F0068;
+    --color-secondary: #677B92;
     --color-secondary-100: #FABACC;
     --color-secondary-500: #ED0057;
 
     --color-success: #43B055;
     --color-danger: #FF0012;
     --color-info: #FFBB00;
+
+    --color-text: #ECEFF1;
   }
 `;
 
 export const darkTheme = css`
   :root {
-    --color-primary: #7F0068;
+    --color-primary: #5D55F0;
     --color-primary-100: #FABACC;
     --color-primary-500: #ED0057;
 
-    --color-secondary: #2113A1;
+    --color-secondary: #677B92;
     --color-secondary-100: #D6C4F7;
     --color-secondary-500: #703BCB;
 
     --color-success: #43B055;
     --color-danger: #FF0012;
     --color-info: #FFBB00;
+
+    --color-text: #ECEFF1;
   }
 `;
