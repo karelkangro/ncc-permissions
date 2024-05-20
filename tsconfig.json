@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src",
+    "paths": {
+      "api/*": ["api/*"],
+      "assets/*":  ["assets/*"],
+      "components/*":  ["components/*"],
+      "constants/*":  ["constants/*"],
+      "contexts/*": ["context/*"],
+      "hooks/*":  ["hooks/*"],
+      "theme/*":  ["theme/*"],
+      "layouts/*": ["layouts/*"],
+      "lib/*":  ["lib/*"],
+      "modules/*":  ["modules/*"],
+      "types/*": ["types/*"],
+      "utils/*": ["utils/*"],
+    },
+    "types": [
+      "vite-plugin-svgr/client"
+    ]
+  },
+  "include": [
+    "src"
+, "svg.d.ts"  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
