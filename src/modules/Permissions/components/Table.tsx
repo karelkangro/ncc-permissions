@@ -68,7 +68,7 @@ interface Props {
   onEditRole: () => void;
 }
 
-export const PermissionsTable = ({ columns, onRemoveRole, onEditRole }: Props) => (
+export const PermissionsTable = ({ columns, onRemoveRole }: Props) => (
   <PermissionsTableWrapper cols={columns}>
     {Array.from({ length: columns }).map((_, i) => (
       <HeaderColumnItem key={`header-${i}`} style={{ padding: '10px', textAlign: 'center' }}>
