@@ -3,9 +3,34 @@ import { reset } from './reset';
 
 export const BaseStyles = createGlobalStyle`
   ${reset}
+
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Regular.ttf') format('ttf'),
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-SemiBold.ttf') format('ttf'),
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'PP Neue Montreal';
+    src: url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff2') format('woff2'),
+      url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff') format('woff'),
+        url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.ttf') format('truetype'),
+          url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
   :root {
     /** Typography **/
-    --font-family-body: sans-serif;
+    --font-family-body: PP Neue Montreal, sans-serif;
     --font-family-heading: sans-serif;
     --font-family-quote: sans-serif;
 
@@ -18,14 +43,7 @@ export const BaseStyles = createGlobalStyle`
     --font-size-3xl: 4.25rem;
     --font-size-4xl: 5.4375rem;
 
-    --line-height-xs: 1.3rem;
-    --line-height-sm: 1.7rem;
-    --line-height-md: 2.1rem;
-    --line-height-lg: 2.7rem;
-    --line-height-xl: 3.4rem;
-    --line-height-2xl: 4.4rem;
-    --line-height-3xl: 5.5rem;
-    --line-height-4xl: 7rem;
+    /** Font Weights **/
     --font-weight-thin: 100;
     --font-weight-light: 300;
     --font-weight-regular: 400;
@@ -33,6 +51,15 @@ export const BaseStyles = createGlobalStyle`
     --font-weight-semiBold: 600;
     --font-weight-bold: 700;
     --font-weight-extraBold: 900;
+
+    --line-height-xs: 1.5rem;
+    --line-height-sm: 1.7rem;
+    --line-height-md: 2.1rem;
+    --line-height-lg: 2.7rem;
+    --line-height-xl: 3.4rem;
+    --line-height-2xl: 4.4rem;
+    --line-height-3xl: 5.5rem;
+    --line-height-4xl: 7rem;
 
     /** Gradient **/
     --gradient-primary: linear-gradient(171.22deg, var(--color-primary-500) -6.09%, var(--color-bg) 119.46%);
@@ -93,8 +120,8 @@ export const BaseStyles = createGlobalStyle`
 
     /** Base **/
     --font-family-base: var(--font-family-body);
-    --font-size-base: var(--font-size-xs);
     --font-weight-base: var(--font-weight-regular);
+    --font-size-base: var(--font-size-xs);
     --line-height-base: var(--line-height-xs);
   }
 `;

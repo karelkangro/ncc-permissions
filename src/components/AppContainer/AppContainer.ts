@@ -6,6 +6,7 @@ export const AppContainer = styled.div`
   justify-content: center;
   min-height: 100vh;
   font-family: var(--font-family-body);
+  font-weight: var(--font-weight-regular);
   color: var(--color-primary);
   background-color: #0D131B;
 `;

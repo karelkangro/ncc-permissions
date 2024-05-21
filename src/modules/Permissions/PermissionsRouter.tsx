@@ -1,11 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Permissions } from './Permissions';
 
-const EmptyPage = () => (
-  <div>
-    <h2>Pretty emoty</h2>
-  </div>
-)
+const EmptyPage = () => <span></span>
 
 const PermissionsRouter = () => (
   <Routes>

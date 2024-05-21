@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconVerticalDots } from 'assets/icons'; // Adjust the import according to your file structure
+import { DotsVerticalIcon } from 'assets/icons'; // Adjust the import according to your file structure
 
 // Wrapper component for the entire table
 const PermissionsTableWrapper = styled.div<{ cols: number }>`
@@ -52,7 +52,7 @@ const Toggle = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 // Remove icon styled component
-const RemoveIcon = styled(IconVerticalDots)`
+const RemoveIcon = styled(DotsVerticalIcon)`
   cursor: pointer;
   margin-left: 10px;
 `;
