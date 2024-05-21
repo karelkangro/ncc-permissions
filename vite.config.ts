@@ -3,7 +3,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgr from "vite-plugin-svgr";
-// import Unfonts from "unplugin-fonts/vite";
+import Unfonts from "unplugin-fonts/vite";
 import path from "path";
 
 // https://vitejs.dev/config/
@@ -11,6 +11,36 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
+    Unfonts({
+      custom: {
+        families: [
+          {
+            name: "PPNeueMontreal",
+            local: "PPNeueMontreal",
+            src: "./src/assets/fonts/PPNeueMontreal/*.{otf,ttf,woff,woff2}",
+            transform(font) {
+              switch (font.basename) {
+                case 'PPNeueMontreal-Semibold':
+                  font.weight = 500;
+                  font.style = 'normal';
+                  break;
+                case 'PPNeueMontreal-Regular':
+                  font.weight = 400;
+                  font.style = 'normal';
+                  break;
+                default:
+                  font.weight = 400;
+                  break;
+              }
+              return font;
+            }
+          }
+        ],
+        display: "auto",
+        prefetch: false,
+        injectTo: "head-prepend",
+      },
+    }),
   ],
   resolve: {
     alias: {
@@ -29,39 +59,3 @@ export default defineConfig({
     },
   }
 })
-
-// Unfonts({
-//   custom: {
-//     families: [
-//       {
-//         name: "Sohne Breit",
-//         local: "Sohne Breit",
-//         src: "./src/assets/fonts/SöhneBreit/*.otf",
-//         transform(font) {
-//           switch (font.basename) {
-//             case 'SöhneBreit-Bold':
-//               font.weight = 700
-//               break;
-//             case 'SöhneBreit-SemiBold':
-//               font.weight = 600
-//               break;
-//             case 'SöhneBreit-Medium':
-//               font.weight = 500
-//               break;
-//             case 'SöhneBreit-Regular':
-//             default:
-//               font.weight = 400
-//               break;
-//             case 'SöhneBreit-Light':
-//               font.weight = 300
-//               break;
-//           }
-//           return font
-//         }
-//       }
-//     ],
-//     display: "auto",
-//     prefetch: false,
-//     injectTo: "head-prepend",
-//   },
-// }),
