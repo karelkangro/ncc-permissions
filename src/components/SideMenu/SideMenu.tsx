@@ -1,13 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { menuItems } from './Menu.data';
 import styled from 'styled-components';
-
-const MenuItem = styled(Link)`
-  display: flex;
-  align-items: center;
-  color: #677B92;
-  text-decoration: none;
-`;
 
 const Menu = styled.div`
   display: flex;
@@ -17,23 +10,44 @@ const Menu = styled.div`
   background-color: #131B24;
 `
 
+const MenuItem = styled(Link) <{ $active?: boolean, $topLevel?: boolean }>`
+  display: flex;
+  align-items: center;
+  color: #677B92;
+  font-size: 12px;
+  text-decoration: none;
+  height: 2.5rem;
+  border-radius: var(--radius-2xs);
+  background: ${(props) => props.$active ? '#10171F' : 'none'};
+  margin-bottom: ${(props) => props.$topLevel ? 'var(--space-2)' : 0};
+`;
+
+const IconWrap = styled.div`
+  margin-right: 0.56rem;
+  margin-left: var(--space-1);
+`
+
+
 export const SideMenu = () => {
+  const location = useLocation();
+
   return (
     <Menu>
       {menuItems.map((item) => (
         <div key={item.name}>
-          <MenuItem
+          <MenuItem $topLevel
             to={item?.route ?? ''}
           >
-            {item.icon} {item.name}
+            {item.name}
           </MenuItem>
           {item.subMenuItems?.map(
             el => (
               <MenuItem
                 key={el.route}
                 to={el.route ?? ''}
+                $active={el.route === location.pathname}
               >
-                {el.icon} {el.name}
+                <IconWrap>{el.icon}</IconWrap> {el.name}
               </MenuItem>
             )
           )}

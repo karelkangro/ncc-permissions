@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { PermissionsPage } from "./Permissions.styled";
 import { useState } from "react";
 import { PermissionsTable } from './components'
+import { Button } from "components/Button";
 
 const Header = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ export const Permissions = () => {
       <Header>
         <h1>Permissions</h1>
         <button onClick={deleteColumn}>- Delete role</button>
-        <button onClick={addColumn}>+ New role</button>
+        <Button $primary onClick={addColumn}>+ New role</Button>
       </Header>
       <PermissionsTable
         columns={columns}
