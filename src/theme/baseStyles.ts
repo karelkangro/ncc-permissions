@@ -34,6 +34,8 @@ export const BaseStyles = createGlobalStyle`
     --font-family-heading: sans-serif;
     --font-family-quote: sans-serif;
 
+    --font-size-3xs: 0.75rem;
+    --font-size-xxs: 0.875rem;
     --font-size-xs: 1rem;
     --font-size-sm: 1.3125rem;
     --font-size-md: 1.625rem;
