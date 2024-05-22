@@ -77,6 +77,8 @@ export const darkTheme = css`
     --color-text: #ECEFF1;
     --color-text-dark: #677B92;
 
+    --color-bg-dark: #10171F;
+
     /* Colors */
     --color-primary: #5D55F0; /* Primary blue */
     --color-secondary: #677B92; /* Secondary grey-blue */
