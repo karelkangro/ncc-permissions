@@ -8,14 +8,14 @@ import {
   UsersIcon
 } from 'assets/icons';
 
-export interface MenuItem {
+export interface IMenuItem {
   name: string;
   route: string | null;
   icon: React.ReactNode;
-  subMenuItems?: MenuItem[];
+  subMenuItems?: IMenuItem[];
 }
 
-export const menuItems: MenuItem[] = [
+export const menuItems: IMenuItem[] = [
   {
     name: 'COMPANY',
     route: '/settings',
