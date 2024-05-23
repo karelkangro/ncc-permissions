@@ -76,17 +76,15 @@ export const darkTheme = css`
 
     --color-text: #ECEFF1;
     --color-text-dark: #677B92;
+    --color-text-darker: #273647;
 
     --color-bg-dark: #10171F;
+    --color-border: rgba(217, 217, 217, 0.05);
 
-    /* Colors */
-    --color-primary: #5D55F0; /* Primary blue */
-    --color-secondary: #677B92; /* Secondary grey-blue */
-    --color-warning: #D51E68; /* Red warning/danger */
-    --color-light: #ECEFF1; /* Light text color */
-    --color-dark: #131B24; /* Dark background color */
-    --color-tooltip-bg: #1A2430; /* Tooltip background */
-    --color-tooltip-border: #273647; /* Tooltip border */
+    --color-bg-dark: #131B24;
+    --color-tooltip-bg: #1A2430;
+    --color-tooltip-border: #273647;
+
     --color-toggle-dot-blue: rgba(93, 85, 240, 0.30);
     --color-toggle-bg-blue: rgba(93, 85, 240, 0.30);
     --color-toggle-bg-gray: rgba(198, 206, 214, 0.10);

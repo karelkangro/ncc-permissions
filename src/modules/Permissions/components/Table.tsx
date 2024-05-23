@@ -1,49 +1,35 @@
 import styled from 'styled-components';
-import { DotsVerticalIcon } from 'assets/icons'; // Adjust the import according to your file structure
+import { DotsVerticalIcon, LockIcon } from 'assets/icons'; // Adjust the import according to your file structure
+
+const TableContainer = styled.div`
+  width: 100%;
+  max-width: 100%;
+`;
 
 // Wrapper component for the entire table
 const PermissionsTableWrapper = styled.div<{ cols: number }>`
   display: grid;
-  grid-template-columns: 60% repeat(${props => props.cols - 1}, 1fr);
-  width: 100%;
+  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.cols - 1}, minmax(var(--space-13), var(--space-13)));
+  overflow-x: auto;
+  max-width: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  overflow: hidden;
-  border: 1px solid #D9D9D90D;
+  border: 1px solid var(--color-border-light);
 `;
 
-// Styled component for the first column
-const FirstCol = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 var(--space-2);
-  grid-column: 1;
-  background-color: #f5f6f8;
-  background: #677B92;
-  border: solid 1px #D9D9D90D;
-`;
-
-// Existing column styled component
-const Col = styled.div`
+const Cell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 var(--space-2);
-  background-color: #fff;
-  background: #5D55F0;
-  border: solid 1px #D9D9D90D;
   border-top: none;
+  border: solid 1px var(--color-border-light);
 `;
 
-// Styled component for the section row
-const SectionRow = styled.div<{ cols: number }>`
-  display: grid;
-  grid-template-columns: 60% repeat(${props => props.cols}, 1fr);
-  grid-column: 1 / -1;
-  padding: 10px;
-  background-color: black;
-  font-weight: bold;
+const FirstColumnCell = styled.div`
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 // Styled component for toggle switches
@@ -52,44 +38,130 @@ const Toggle = styled.input.attrs({ type: 'checkbox' })`
 `;
 
 // Remove icon styled component
-const RemoveIcon = styled(DotsVerticalIcon)`
+const DotsIcon = styled(DotsVerticalIcon)`
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: var(--space-15);
 `;
 
-const HeaderColumnItem = styled(Col)`
-  background: #273647;
-  color: white;
+const AdminRoleIconWrapper = styled(LockIcon)`
+  pointer-events: none;
+  margin-left: var(--space-15);
+`;
+
+const HeaderRowCell = styled(Cell)<{$isFirstItem?: boolean}>`
+  font-size: var(--font-size-xxs);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-xs);
+  color: var(--color-secondary);
+  padding: var(--space-2);
+  background: var(--color-bg-dark);
+  border: 1px solid var(--color-border);
+
+  & > span {
+    margin-right: ${({$isFirstItem}) => $isFirstItem ? 'auto' : 'none'}
+  }
+`;
+
+const HeaderRowCellContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// Styled component for the section row
+const SectionRow = styled.div<{ cols: number }>`
+  display: grid;
+  grid-column: 1 / -1;
+  padding: var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-xxs);
+  color: var(--color-secondary);
+  border-left: solid 1px var(--color-border);
+  border-right: solid 1px var(--color-border);
+`;
+
+const ActionTitle = styled(Cell) <{ $isFirstItem?: boolean }>`
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-xs);
+  color: var(--color-text);
+  padding-left: var(--space-2);
+  border-left: solid 1px var(--color-border);
+
+  & > span {
+    margin-right: auto
+  }
+`;
+
+const Action = styled.div`
+  &:last-child {
+    border-left: solid 1px var(--color-border);
+    border-bottom: solid 1px var(--color-border);
+  }
+`
+
+const ActionDescription = styled(Cell) <{ $isFirstItem?: boolean }>`
+  font-size: var(--font-size-xxs);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-xs);
+  padding-left: var(--space-2);
+  color: var(--color-secondary);
+  border-left: solid 1px var(--color-border);
+
+
+  & > span {
+    margin-right: auto
+  }
 `;
 
 interface Props {
   columns: number;
   onRemoveRole: (index: number) => void;
   onEditRole: () => void;
+  innerRef: React.RefObject<HTMLDivElement>;
 }
 
-export const PermissionsTable = ({ columns, onRemoveRole }: Props) => (
-  <PermissionsTableWrapper cols={columns}>
-    {Array.from({ length: columns }).map((_, i) => (
-      <HeaderColumnItem key={`header-${i}`} style={{ padding: '10px', textAlign: 'center' }}>
-        {i === 0 ? "Action" : `Role ${i}`}
-      </HeaderColumnItem>
-    ))}
-    <SectionRow cols={columns}>
-      General
-    </SectionRow>
-    {Array.from({ length: columns }).map((_, i) => (
-      i === 0 ? (
-        <FirstCol key={`col-${i}`}>
-          <div>Action Title</div>
-          <div style={{ color: '#aaa' }}>Action Description</div>
-        </FirstCol>
-      ) : (
-        <Col key={`col-${i}`}>
-          <Toggle />
-          {i >= 4 && <RemoveIcon onClick={() => onRemoveRole(i)} />}
-        </Col>
-      )
-    ))}
-  </PermissionsTableWrapper>
-);
+export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: Props) => (
+    <TableContainer>
+      <PermissionsTableWrapper ref={innerRef} cols={columns}>
+        {Array.from({ length: columns }).map((_, i) => (
+          <HeaderRowCell
+            key={`header-${i}`}
+            $isFirstItem={i === 0}
+          >
+            <HeaderRowCellContent>
+              {i === 0 ? "Action" : `Role ${i}`}
+              {i === 1
+                ? <AdminRoleIconWrapper />
+                : i !== 0 && <DotsIcon onClick={() => onRemoveRole(i)} />
+                // TODO refactor to use table data as input
+              }
+            </HeaderRowCellContent>
+          </HeaderRowCell>
+        ))}
+        <SectionRow cols={columns}>
+          General
+        </SectionRow>
+        {Array.from({ length: columns }).map((_, i) => (i === 0
+          ? (
+            <FirstColumnCell key={`col-${i}`}>
+              <Action>
+                <ActionTitle>
+                  <span>Action Title</span>
+                </ActionTitle>
+                <ActionDescription>
+                  <span>Action Description</span>
+                </ActionDescription>
+              </Action>
+            </FirstColumnCell>
+          )
+          : (
+            <Cell key={`col-${i}`}>
+              <Toggle />
+            </Cell>
+          )
+        ))}
+      </PermissionsTableWrapper>
+    </TableContainer>
+  )

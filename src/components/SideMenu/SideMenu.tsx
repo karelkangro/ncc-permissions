@@ -8,7 +8,7 @@ const Menu = styled.div`
   flex-direction: column;
   padding: var(--space-3) var(--space-2);
   gap: var(--space-15);
-  background-color: var(--color-dark);
+  background-color: var(--color-bg-dark);
 `
 
 const MenuItems = styled.div`

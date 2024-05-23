@@ -54,6 +54,7 @@ export const BaseStyles = createGlobalStyle`
     --font-weight-bold: 700;
     --font-weight-extraBold: 900;
 
+    --line-height-xxs: 1.375rem;
     --line-height-xs: 1.5rem;
     --line-height-sm: 1.7rem;
     --line-height-md: 2.1rem;
@@ -101,6 +102,7 @@ export const BaseStyles = createGlobalStyle`
     --space-8: 4rem;
     --space-10: 5rem;
     --space-12: 6rem;
+    --space-13: 7.5rem;
 
     /** Z-index **/
     --zindex-dropdown: 1000;

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const PageContainer = styled.div`
   display: flex;
   padding: var(--space-4);
+  overflow-x: hidden;
 `
 
 export const LandingPageLayout = () => {
