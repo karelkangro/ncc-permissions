@@ -7,14 +7,13 @@ const TableContainer = styled.div`
   max-width: 100%;
 `;
 
-// Wrapper component for the entire table
 const PermissionsTableWrapper = styled.div<{ cols: number }>`
   display: grid;
   grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.cols - 1}, minmax(var(--space-13), var(--space-13)));
   overflow-x: auto;
   max-width: 100%;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-top-left-radius: var(--radius-xs);
+  border-top-right-radius: var(--radius-xs);
   border: 1px solid var(--color-border-light);
 `;
 
@@ -32,12 +31,7 @@ const FirstColumnCell = styled.div`
   justify-content: center;
 `;
 
-// Styled component for toggle switches
-const Toggle = styled.input.attrs({ type: 'checkbox' })`
-  cursor: pointer;
-`;
 
-// Remove icon styled component
 const DotsIcon = styled(DotsVerticalIcon)`
   cursor: pointer;
   margin-left: var(--space-15);
@@ -54,11 +48,11 @@ const HeaderRowCell = styled(Cell) <{ $isFirstItem?: boolean }>`
   line-height: var(--line-height-xs);
   color: var(--color-secondary);
   padding: var(--space-1);
-  padding-left: ${({ $isFirstItem }) => {
-    const paddingLeftValue = $isFirstItem ? 'var(--space-15)' : 'none';
-    console.log("Padding left value: ", paddingLeftValue);
-    return paddingLeftValue;
-  }};
+  padding-left: ${({ $isFirstItem }) =>
+    $isFirstItem
+    ? 'var(--space-15)'
+    : 'none'
+  };
   background: var(--color-bg-dark);
   border: 1px solid var(--color-border);
 `;
@@ -70,10 +64,10 @@ const HeaderRowCellContent = styled.div<{$isFirstItem?: boolean}>`
   margin-right: ${({ $isFirstItem }) =>
     $isFirstItem
       ? 'auto'
-      : 'none'}
+    : 'none'
+  };
 `;
 
-// Styled component for the section row
 const SectionRow = styled.div<{ cols: number }>`
   display: grid;
   grid-column: 1 / -1;
@@ -140,14 +134,14 @@ const ToggleCell = styled(Cell)`
   }
 `;
 
-interface Props {
+interface ITable {
   columns: number;
   onRemoveRole: (index: number) => void;
   onEditRole: () => void;
   innerRef: React.RefObject<HTMLDivElement>;
 }
 
-export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: Props) => (
+export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: ITable) => (
     <TableContainer>
       <PermissionsTableWrapper ref={innerRef} cols={columns}>
         {Array.from({ length: columns }).map((_, i) => (

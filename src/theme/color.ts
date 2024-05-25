@@ -85,8 +85,8 @@ export const darkTheme = css`
     --color-tooltip-bg: #1A2430;
     --color-tooltip-border: #273647;
 
-    --color-switch-bg-gray: rgba(198, 206, 214, 0.10);
     --color-switch-bg-blue: rgba(93, 85, 240, 0.30);
     --color-switch-bg-blue-disabled: rgba(103, 116, 244, 0.20);
+    --color-switch-bg-gray: rgba(198, 206, 214, 0.10);
   }
 `;

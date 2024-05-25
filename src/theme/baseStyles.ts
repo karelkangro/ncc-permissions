@@ -61,7 +61,7 @@ export const BaseStyles = createGlobalStyle`
     --radius-4xs: 0.25rem;
     --radius-3xs: 0.3125rem;
     --radius-2xs: 0.5rem;
-    --radius-xs: 1rem;
+    --radius-xs: 0.625rem;
     --radius-sm: 1.25rem;
     --radius-md: 2.5rem;
 
