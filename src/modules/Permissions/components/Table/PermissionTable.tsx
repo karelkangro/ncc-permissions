@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { HeaderRow } from './HeaderRow';
-import { ActionRows } from './ActionRows';
+import { ActionGroups } from './ActionGroups';
+import { ActionGroup, Role } from 'modules/Permissions/types/table.data';
 
 const TableScrollContainer = styled.div`
   width: 100%;
@@ -16,18 +17,39 @@ const ScrollableTable = styled.div<{ cols: number }>`
   border-top-right-radius: var(--radius-xs);
   border: 1px solid var(--color-border-light);
 `;
+
 interface ITable {
-  columns: number;
+  data: {
+    actionGroups: ActionGroup[];
+    roles: Role[];
+  };
   onRemoveRole: (index: number) => void;
   onEditRole: () => void;
   innerRef: React.RefObject<HTMLDivElement>;
 }
 
-export const PermissionsTable = ({ columns, onEditRole, innerRef }: ITable) => (
-    <TableScrollContainer>
-      <ScrollableTable ref={innerRef} cols={columns}>
-      <HeaderRow columns={columns} onEditRole={() => console.log('role')} />
-      <ActionRows columns={columns} />
-      </ScrollableTable>
-    </TableScrollContainer>
-  )
+export const PermissionsTable = ({
+  data,
+  onEditRole,
+  onRemoveRole,
+  innerRef
+}: ITable) => (
+  <TableScrollContainer>
+    <ScrollableTable ref={innerRef} cols={data.roles.length}>
+      <HeaderRow
+        columns={data.roles.length}
+        roles={data.roles}
+        onEditRole={onEditRole}
+        onRemoveRole={onRemoveRole}
+      />
+      {data?.actionGroups?.map((group, index) => (
+        <ActionGroups
+          key={index}
+          groupName={group.name}
+          actions={group.actions}
+          columns={data.roles.length}
+        />
+      ))}
+    </ScrollableTable>
+  </TableScrollContainer>
+);

@@ -3,6 +3,7 @@ import { PermissionsPage } from "./Permissions.styled";
 import { useEffect, useRef, useState } from "react";
 import { PermissionsTable } from './components'
 import { Button } from "components/Button";
+import { ACTION_GROUPS, DEFAULT_ROLES } from "./data";
 
 const Header = styled.div`
   display: flex;
@@ -17,26 +18,46 @@ const Header = styled.div`
     line-height: 1rem;
   }
 `
-const DEFAULT_COLUMNS = 5;
+
+const getInitialData = () => {
+  const savedRoles = localStorage.getItem('roles');
+
+  return savedRoles
+    ? { actionGroups: ACTION_GROUPS, roles: JSON.parse(savedRoles) }
+    : { actionGroups: ACTION_GROUPS, roles: DEFAULT_ROLES };
+};
 
 export const Permissions = () => {
-  const [columns, setColumns] = useState(DEFAULT_COLUMNS);
+  const [data, setData] = useState(getInitialData);
   const tableRef = useRef<HTMLDivElement>(null);
 
-  const addColumn = () => setColumns(prev => prev + 1);
-  const deleteColumn = () =>
-    setColumns(prev => (prev > DEFAULT_COLUMNS ? prev - 1 : prev))
+  useEffect(() => {
+    localStorage.setItem('roles', JSON.stringify(data.roles));
+  }, [data.roles]);
+
+  const addColumn = () => setData(prev => ({ ...prev, roles: [...prev.roles, { id: prev.roles.length + 1, name: `Role ${prev.roles.length + 1}`, actions: [] }] }));
+  const deleteColumn = () => setData(prev => ({ ...prev, roles: prev.roles.length > DEFAULT_ROLES.length ? prev.roles.slice(0, -1) : prev.roles }));
+
+  // const addRole = (roleName: string, copyFromRoleId: number) => {
+  //   const roleToCopy = data.roles.find(role => role.id === copyFromRoleId);
+  //   if (roleToCopy) {
+  //     const newRole: Role = {
+  //       id: data.roles.length + 1,
+  //       name: roleName,
+  //       actions: roleToCopy.actions.map(action => ({ ...action })),
+  //     };
+  //     setData({ ...data, roles: [...data.roles, newRole] });
+  //   }
+  // };
 
   useEffect(() => {
     if (tableRef.current) {
-      if (tableRef.current) {
-        tableRef.current?.scrollTo({
-          left: tableRef.current.scrollWidth,
-          behavior: 'smooth',
-        });
-      }
+      tableRef.current?.scrollTo({
+        left: tableRef.current.scrollWidth,
+        behavior: 'smooth',
+      });
     }
-  }, [columns]);
+  }, [data.roles]);
 
   return (
     <PermissionsPage>
@@ -47,11 +68,10 @@ export const Permissions = () => {
       </Header>
       <PermissionsTable
         innerRef={tableRef}
-        columns={columns}
+        data={data}
         onRemoveRole={deleteColumn}
         onEditRole={addColumn}
       />
     </PermissionsPage>
   );
 };
-

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { TableCell } from "./TableCell";
 import { ToggleCell } from "./ToggleCell";
 import { SwitchButton } from "components/SwitchButton";
+import { ActionGroup } from "modules/Permissions/types/table.data";
 
 const ActionRow = styled.div`
   display: flex;
@@ -61,25 +62,32 @@ const SectionRow = styled.div<{ cols: number }>`
   border-right: solid 1px var(--color-border);
 `;
 
-export const ActionRows = ({ columns }: { columns: number }) => (
+interface IActionRows {
+  actions: ActionGroup['actions'];
+  groupName: string;
+  columns: number;
+}
+export const ActionGroups = ({ columns, groupName, actions }: IActionRows) => (
   <>
-    <SectionRow cols={columns}>General</SectionRow>
+    <SectionRow cols={columns}>{groupName}</SectionRow>
     {Array.from({ length: columns }).map((_, i) => (
       <ActionRow key={`col-${i}`}>
         {i === 0 && (
           <FirstColumnCell id="firstcol">
-            <Action>
-              <ActionTitle>
-                <span>Action Title</span>
-              </ActionTitle>
-              <ActionDescription>
-                <span>Action Description</span>
-              </ActionDescription>
-            </Action>
+            {actions.map((action, index) => (
+              <Action key={index}>
+                <ActionTitle>
+                  <span>{action.title}</span>
+                </ActionTitle>
+                <ActionDescription>
+                  <span>{action.description}</span>
+                </ActionDescription>
+              </Action>
+            ))}
           </FirstColumnCell>
         )}
         {i !== 0 && (
-          <ToggleCell key={`col-${i}`}>
+          <ToggleCell>
             <SwitchButton disabled={i === 1} />
           </ToggleCell>
         )}

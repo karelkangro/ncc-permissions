@@ -9,7 +9,13 @@ const DotsIconStyled = styled(DotsVerticalIcon)`
   margin-left: var(--space-15);
 `;
 
-export const EditRoleDialog = ({ onEditRole, index }: { onEditRole: (index: number) => void, index: number }) => {
+interface IEditRoleProps {
+  index: number;
+  onRemoveRole: (index: number) => void;
+  onEditRole: (index: number) => void;
+}
+
+export const EditRoleDialog = ({ onEditRole, onRemoveRole, index }: IEditRoleProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const toggleDialog = () => {
@@ -20,13 +26,16 @@ export const EditRoleDialog = ({ onEditRole, index }: { onEditRole: (index: numb
     <div style={{ position: 'relative' }}>
       <DotsIconStyled onClick={toggleDialog} />
       <Dialog isOpen={isDialogOpen} toggleDialog={toggleDialog}>
-        <ButtonTransparent style={{ marginBottom: '.375rem' }}>
+        <ButtonTransparent
+          style={{ marginBottom: '.375rem' }}
+          onClick={()=> onEditRole(index)}
+        >
           <PencilIcon /> Edit details
         </ButtonTransparent>
         <hr style={{ border: 'solid 1px var(--color-border)' }} />
         <ButtonDanger
           style={{ marginTop: '.375rem' }}
-          onClick={() => onEditRole(index)}
+          onClick={() => onRemoveRole(index)}
         >
           <GarbageIcon /> Remove
         </ButtonDanger>
