@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { DotsVerticalIcon, LockIcon } from 'assets/icons'; // Adjust the import according to your file structure
-import { SwitchButton } from 'components';
+import { DotsVerticalIcon, GarbageIcon, LockIcon, PencilIcon } from 'assets/icons'; // Adjust the import according to your file structure
+import { SwitchButton, Dialog, Button, ButtonTransparent, ButtonDanger } from 'components';
+import { useState } from 'react';
 
 const TableContainer = styled.div`
   width: 100%;
@@ -32,7 +33,8 @@ const FirstColumnCell = styled.div`
 `;
 
 
-const DotsIcon = styled(DotsVerticalIcon)`
+const DotsIconStyled = styled(DotsVerticalIcon)`
+  position: relative;
   cursor: pointer;
   margin-left: var(--space-15);
 `;
@@ -141,7 +143,33 @@ interface ITable {
   innerRef: React.RefObject<HTMLDivElement>;
 }
 
-export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: ITable) => (
+const EditRoleDialog = ({ onEditRole, index }: { onEditRole: (index: number) => void, index: number }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const toggleDialog = () => {
+    setIsDialogOpen((prev) => !prev);
+  };
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <DotsIconStyled onClick={toggleDialog} />
+      <Dialog isOpen={isDialogOpen} toggleDialog={toggleDialog}>
+        <ButtonTransparent style={{marginBottom: '.375rem'}}>
+          <PencilIcon /> Edit details
+        </ButtonTransparent>
+        <hr style={{border: 'solid 1px var(--color-border)'}} />
+        <ButtonDanger
+          style={{ marginTop: '.375rem' }}
+          onClick={() => onEditRole(index)}
+        >
+          <GarbageIcon /> Remove
+          </ButtonDanger>
+      </Dialog>
+    </div>
+  );
+};
+
+export const PermissionsTable = ({ columns, onEditRole, innerRef }: ITable) => (
     <TableContainer>
       <PermissionsTableWrapper ref={innerRef} cols={columns}>
         {Array.from({ length: columns }).map((_, i) => (
@@ -153,7 +181,7 @@ export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: ITable) =>
               {i === 0 ? "Action" : `Role ${i}`}
               {i === 1
                 ? <AdminRoleIconWrapper />
-                : i !== 0 && <DotsIcon onClick={() => onRemoveRole(i)} />
+                : i !== 0 && <EditRoleDialog index={i} onEditRole={() => console.log('role', i)} />
                 // TODO refactor to use table data as input
               }
             </HeaderRowCellContent>
