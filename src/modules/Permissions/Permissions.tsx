@@ -42,8 +42,8 @@ export const Permissions = () => {
     <PermissionsPage>
       <Header>
         <h1>Permissions</h1>
-        <button onClick={deleteColumn}>- Delete role</button>
-        <Button $primary onClick={addColumn}>+ New role</Button>
+        <Button onClick={deleteColumn}>- Delete role</Button>
+        <Button onClick={addColumn}>+ New role</Button>
       </Header>
       <PermissionsTable
         innerRef={tableRef}
