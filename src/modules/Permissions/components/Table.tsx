@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { DotsVerticalIcon, LockIcon } from 'assets/icons'; // Adjust the import according to your file structure
+import { SwitchButton } from 'components';
 
 const TableContainer = styled.div`
   width: 100%;
@@ -26,7 +27,6 @@ const Cell = styled.div`
 `;
 
 const FirstColumnCell = styled.div`
-  grid-column: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -48,24 +48,29 @@ const AdminRoleIconWrapper = styled(LockIcon)`
   margin-left: var(--space-15);
 `;
 
-const HeaderRowCell = styled(Cell)<{$isFirstItem?: boolean}>`
+const HeaderRowCell = styled(Cell) <{ $isFirstItem?: boolean }>`
   font-size: var(--font-size-xxs);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-xs);
   color: var(--color-secondary);
-  padding: var(--space-2);
+  padding: var(--space-1);
+  padding-left: ${({ $isFirstItem }) => {
+    const paddingLeftValue = $isFirstItem ? 'var(--space-15)' : 'none';
+    console.log("Padding left value: ", paddingLeftValue);
+    return paddingLeftValue;
+  }};
   background: var(--color-bg-dark);
   border: 1px solid var(--color-border);
-
-  & > span {
-    margin-right: ${({$isFirstItem}) => $isFirstItem ? 'auto' : 'none'}
-  }
 `;
 
-const HeaderRowCellContent = styled.div`
+const HeaderRowCellContent = styled.div<{$isFirstItem?: boolean}>`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: ${({ $isFirstItem }) =>
+    $isFirstItem
+      ? 'auto'
+      : 'none'}
 `;
 
 // Styled component for the section row
@@ -73,6 +78,7 @@ const SectionRow = styled.div<{ cols: number }>`
   display: grid;
   grid-column: 1 / -1;
   padding: var(--space-2);
+  padding-top: var(--space-25);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-xxs);
@@ -81,25 +87,32 @@ const SectionRow = styled.div<{ cols: number }>`
   border-right: solid 1px var(--color-border);
 `;
 
+const ActionRow = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-bottom: solid 1px var(--color-border);
+
+`
+const Action = styled.div`
+  border-left: solid 1px var(--color-border);
+  padding-bottom: var(--space-1);
+
+  &:last-child {
+    padding-bottom: var(--space-1);
+  }
+`
 const ActionTitle = styled(Cell) <{ $isFirstItem?: boolean }>`
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-xs);
   color: var(--color-text);
   padding-left: var(--space-2);
-  border-left: solid 1px var(--color-border);
 
   & > span {
     margin-right: auto
   }
 `;
-
-const Action = styled.div`
-  &:last-child {
-    border-left: solid 1px var(--color-border);
-    border-bottom: solid 1px var(--color-border);
-  }
-`
 
 const ActionDescription = styled(Cell) <{ $isFirstItem?: boolean }>`
   font-size: var(--font-size-xxs);
@@ -107,11 +120,23 @@ const ActionDescription = styled(Cell) <{ $isFirstItem?: boolean }>`
   line-height: var(--line-height-xs);
   padding-left: var(--space-2);
   color: var(--color-secondary);
-  border-left: solid 1px var(--color-border);
-
 
   & > span {
     margin-right: auto
+  }
+`;
+
+const ToggleCell = styled(Cell)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  &:first-child {
+    border-left: solid 1px var(--color-border);
+  }
+  &:last-child {
+    border-right: solid 1px var(--color-border);
   }
 `;
 
@@ -130,7 +155,7 @@ export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: Props) => 
             key={`header-${i}`}
             $isFirstItem={i === 0}
           >
-            <HeaderRowCellContent>
+            <HeaderRowCellContent $isFirstItem={i === 0}>
               {i === 0 ? "Action" : `Role ${i}`}
               {i === 1
                 ? <AdminRoleIconWrapper />
@@ -143,9 +168,10 @@ export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: Props) => 
         <SectionRow cols={columns}>
           General
         </SectionRow>
-        {Array.from({ length: columns }).map((_, i) => (i === 0
-          ? (
-            <FirstColumnCell key={`col-${i}`}>
+      {Array.from({ length: columns }).map((_, i) => (
+        <ActionRow key={`col-${i}`}>
+          {i === 0 && (
+            <FirstColumnCell id="firstcol">
               <Action>
                 <ActionTitle>
                   <span>Action Title</span>
@@ -155,13 +181,14 @@ export const PermissionsTable = ({ columns, onRemoveRole, innerRef }: Props) => 
                 </ActionDescription>
               </Action>
             </FirstColumnCell>
-          )
-          : (
-            <Cell key={`col-${i}`}>
-              <Toggle />
-            </Cell>
-          )
-        ))}
+          )}
+          {i !== 0 && (
+            <ToggleCell key={`col-${i}`}>
+              <SwitchButton disabled={i === 1} />
+            </ToggleCell>
+          )}
+        </ActionRow>
+      ))}
       </PermissionsTableWrapper>
     </TableContainer>
   )

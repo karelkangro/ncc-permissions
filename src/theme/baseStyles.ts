@@ -18,16 +18,6 @@ export const BaseStyles = createGlobalStyle`
     font-style: normal;
   }
 
-  @font-face {
-    font-family: 'PP Neue Montreal';
-    src: url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff2') format('woff2'),
-      url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.woff') format('woff'),
-        url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.ttf') format('truetype'),
-          url('./src/assets/fonts/PPNeueMontreal/PPNeueMontreal-Bold.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-  }
-
   :root {
     /** Typography **/
     --font-family-body: PP Neue Montreal, sans-serif;
