@@ -1,4 +1,3 @@
-// Dialog.js
 import { useRef, useEffect } from 'react';
 import { DialogContainer } from './Dialog.styled';
 

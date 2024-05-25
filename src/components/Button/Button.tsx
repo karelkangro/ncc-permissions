@@ -20,3 +20,12 @@ export const Button = styled.button<{ $primary?: boolean;}>`
   };
   cursor: pointer;
 `;
+
+export const ButtonTransparent = styled(Button)`
+  background: transparent;
+  color: var(--color-text);
+`
+
+export const ButtonDanger = styled(ButtonTransparent)`
+  color: var(--color-danger);
+`
