@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { PermissionsPage } from "./Permissions.styled";
 import { useEffect, useRef, useState } from "react";
-import { PermissionsTable } from './components'
-import { Button } from "components/Button";
+import { PermissionsTable, CreateEditRoleForm } from './components'
+import { Button, Sidebar } from "components";
 import { ACTION_GROUPS, DEFAULT_ROLES } from "./data";
 
 const Header = styled.div`
@@ -18,7 +18,6 @@ const Header = styled.div`
     line-height: 1rem;
   }
 `
-
 const getInitialData = () => {
   const savedRoles = localStorage.getItem('roles');
 
@@ -50,6 +49,35 @@ export const Permissions = () => {
   //   }
   // };
 
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(data.roles[0].id);
+  const [roleName, setRoleName] = useState('');
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!isSidebarOpen);
+  };
+
+  const selectRole: React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    setSelectedRole(e.target.value);
+  };
+
+  const onSetName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setRoleName(e.target.value);
+  };
+
+  const addNewRole = () => {
+    toggleSidebar();
+  }
+
+  const onSaveFormData = () => {
+    // TODO implement saving to local storage
+    console.log('formData', {
+      roleName,
+      selectedRole,
+    });
+    toggleSidebar();
+  }
+
   useEffect(() => {
     if (tableRef.current) {
       tableRef.current?.scrollTo({
@@ -61,10 +89,22 @@ export const Permissions = () => {
 
   return (
     <PermissionsPage>
+      <Sidebar isOpen={isSidebarOpen}>
+        <CreateEditRoleForm
+          options={data.roles}
+          initialSelectedRole={selectedRole}
+          onRoleChange={selectRole}
+          onNameChange={onSetName}
+          roleName={roleName}
+          onCancel={toggleSidebar}
+          onSave={onSaveFormData}
+          onClose={toggleSidebar}
+        />
+      </Sidebar>
       <Header>
         <h1>Permissions</h1>
         <Button onClick={deleteColumn}>- Delete role</Button>
-        <Button onClick={addColumn}>+ New role</Button>
+        <Button onClick={addNewRole}>+ New role</Button>
       </Header>
       <PermissionsTable
         innerRef={tableRef}

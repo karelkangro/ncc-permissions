@@ -19,7 +19,6 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: solid 1px tomato;
 
 `
 const Footer = styled.div`
