@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { HeaderRow } from './HeaderRow';
-import { ActionGroups } from './ActionGroups';
-import { ActionGroup, Role } from 'modules/Permissions/types/table.data';
+import { ActionsGroup } from './ActionsGroup';
+import { IActionGroup, IRole } from 'modules/Permissions/types/table.data';
 
 const TableScrollContainer = styled.div`
   width: 100%;
@@ -20,8 +20,8 @@ const ScrollableTable = styled.div<{ cols: number }>`
 
 interface ITable {
   data: {
-    actionGroups: ActionGroup[];
-    roles: Role[];
+    actionGroups: IActionGroup[];
+    roles: IRole[];
   };
   onRemoveRole: (index: number) => void;
   onEditRole: () => void;
@@ -43,9 +43,9 @@ export const PermissionsTable = ({
         onRemoveRole={onRemoveRole}
       />
       {data?.actionGroups?.map((group, index) => (
-        <ActionGroups
+        <ActionsGroup
           key={index}
-          groupName={group.name}
+          title={group.name}
           actions={group.actions}
           columns={data.roles.length}
         />

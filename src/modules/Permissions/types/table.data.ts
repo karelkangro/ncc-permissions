@@ -1,21 +1,21 @@
-export interface Action {
+export interface IAction {
   id: number;
   title: string;
   description: string;
 }
 
-export interface ActionGroup {
+export interface IActionGroup {
   name: string;
-  actions: Action[];
+  actions: IAction[];
 }
 
-export interface RoleAction {
+export interface IRoleAction {
   actionId: number;
   enabled: boolean;
 }
 
-export interface Role {
+export interface IRole {
   id: number;
   name: string;
-  actions: RoleAction[];
+  actions: IRoleAction[];
 }

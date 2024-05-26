@@ -95,9 +95,12 @@ export const BaseStyles = createGlobalStyle`
     --space-13: 7.5rem;
 
     /** Z-index **/
-    --zindex-dropdown: 1000;
     --zindex-navbar: 1010;
-    --zindex-modal: 1020;
+    --zindex-dialog: 1020;
+    --zindex-sidebar: 1030;
+    --zindex-dropdown: 1040;
+    --zindex-overlay: 1050;
+    --zindex-tooltip: 1060;
 
     /** Animation **/
     --animation-duration-short: 0.3s;
