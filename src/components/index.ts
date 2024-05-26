@@ -4,3 +4,6 @@ export * from './Svg';
 export * from './Layouts';
 export * from './SwitchButton';
 export * from './Dialog';
+export * from './Sidebar';
+export * from './DropdownMenu';
+export * from './InputBase';
