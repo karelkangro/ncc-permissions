@@ -29,3 +29,8 @@ export const ButtonTransparent = styled(Button)`
 export const ButtonDanger = styled(ButtonTransparent)`
   color: var(--color-danger);
 `
+
+export const ButtonDark = styled(ButtonTransparent)`
+  color: var(--color-text-dark);
+  background: rgba(198, 206, 214, 0.05);
+`
