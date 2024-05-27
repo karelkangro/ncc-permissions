@@ -46,7 +46,8 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
     "styled-components": "^5.3.11",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.1.1",
