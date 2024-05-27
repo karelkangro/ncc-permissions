@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { TableCell } from "./TableCell";
 import { LockIcon } from "assets/icons";
 import { EditRoleDialog } from "./EditRoleDialog";
-import { Role } from "modules/Permissions/types/table.data";
+import { IRole } from "modules/Permissions/types/table.data";
 
 const HeaderRowCellContent = styled.div<{ $isFirstItem?: boolean }>`
   display: flex;
@@ -37,15 +37,11 @@ const AdminRoleIconWrapper = styled(LockIcon)`
 
 interface IHeaderRow {
   columns: number;
-  roles: Role[];
-  onEditRole: () => void;
-  onRemoveRole: (index: number) => void;
+  roles: IRole[];
 }
 export const HeaderRow = ({
   columns,
-  roles,
-  onEditRole,
-  onRemoveRole
+  roles
 }: IHeaderRow) => (
   <>
     {Array.from({ length: columns }).map((_, i) => (
@@ -57,11 +53,12 @@ export const HeaderRow = ({
           {i === 0 ? "Action" : `${roles[i-1].name}`}
           {i === 1
             ? <AdminRoleIconWrapper />
-            : i !== 0 && (<EditRoleDialog
-              index={i}
-              onRemoveRole={onRemoveRole}
-              onEditRole={onEditRole}
-            />)
+            : i !== 0 && (
+              <EditRoleDialog
+                id={roles[i - 1]?.id}
+                name={roles[i - 1]?.name}
+              />
+            )
           }
         </HeaderRowCellContent>
       </HeaderRowCell>

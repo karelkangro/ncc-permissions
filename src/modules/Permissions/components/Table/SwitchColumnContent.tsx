@@ -1,4 +1,3 @@
-import { FC } from "react";
 import styled from "styled-components";
 import { SwitchButton } from "components/SwitchButton";
 
@@ -9,8 +8,22 @@ const SwitchColumnContentWrapper = styled.div`
   border-right: 1px solid var(--color-border);
 `
 
-export const SwitchColumnContent: FC<{ isSwitchDisabled: boolean }> = ({ isSwitchDisabled }) => (
+interface ISwitchColumnContentProps {
+  checked: boolean;
+  isSwitchDisabled: boolean;
+  onChange: (checked: boolean) => void;
+}
+
+export const SwitchColumnContent = (
+  { isSwitchDisabled,
+    checked,
+    onChange
+  }: ISwitchColumnContentProps) => (
   <SwitchColumnContentWrapper>
-    <SwitchButton disabled={isSwitchDisabled} />
+    <SwitchButton
+      checked={checked}
+      disabled={isSwitchDisabled}
+      onChange={onChange}
+    />
   </SwitchColumnContentWrapper>
 );

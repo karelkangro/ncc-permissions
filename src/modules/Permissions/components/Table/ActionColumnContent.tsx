@@ -31,13 +31,13 @@ const ActionDescription = styled(TableCell) <{ $isFirstItem?: boolean }>`
 `;
 
 interface IActionColumnContentProps {
-  index: number;
+  isFirst: boolean;
   title: string;
   description: string;
 }
 
-export const ActionColumnContent: FC<IActionColumnContentProps> = ({ index, title, description }) => (
-  <Action isFirst={index === 0} key={title}>
+export const ActionColumnContent: FC<IActionColumnContentProps> = ({ isFirst, title, description }) => (
+  <Action isFirst={isFirst} key={title}>
     <ActionTitle>
       <span>{title}</span>
     </ActionTitle>

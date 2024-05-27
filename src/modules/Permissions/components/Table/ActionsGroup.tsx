@@ -1,15 +1,17 @@
 import styled from "styled-components";
-import { IActionGroup } from "modules/Permissions/types/table.data";
+import { IAction, IActionGroup, IRole } from "modules/Permissions/types/table.data";
 import { FC } from "react";
 import { ActionColumnContent } from "./ActionColumnContent";
 import { SwitchColumnContent } from "./SwitchColumnContent";
 import { TableColumns } from "./TableColumns";
-
+import { usePermissionStore } from "modules/Permissions/hooks";
+import { ACTIONS } from "modules/Permissions/data/initialData"; // Import the actions array
 
 interface IActionRows {
   actions: IActionGroup['actions'];
   title: string;
   columns: number;
+  roles: IRole[];
 }
 
 const ColumnContent = styled.div<{ rows: number; isActionColumn: boolean }>`
@@ -31,34 +33,60 @@ const GroupTitle = styled.div`
   border-right: solid 1px var(--color-border);
 `;
 
-export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions }) => (
-  <>
-    <GroupTitle>{title}</GroupTitle>
-    <TableColumns columns={columns}>
-      {(columnIndex: number) => {
-        const isActionColumn = columnIndex === 0;
-        const isAdminColumn = columnIndex === 1;
+export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }) => {
+  const { toggleAction } = usePermissionStore();
 
-        return (
-          <ColumnContent isActionColumn={isActionColumn} rows={actions.length}>
-            {isActionColumn
-              ? actions.map((action, idx) => (
-                  <ActionColumnContent
-                    index={idx}
-                    key={action.title}
-                    title={action.title}
-                    description={action.description}
-                  />
-                ))
-              : actions.map(action => (
-                  <SwitchColumnContent
-                    isSwitchDisabled={isAdminColumn}
-                    key={action.title}
-                  />
-                ))}
-          </ColumnContent>
-        );
-      }}
-    </TableColumns>
-  </>
-);
+  const actionLookup = ACTIONS.reduce((acc, action) => {
+    acc[action.id] = action;
+    return acc;
+  }, {} as Record<number, IAction>);
+
+  return (
+    <>
+      <GroupTitle>{title}</GroupTitle>
+      <TableColumns columns={columns}>
+        {(columnIndex: number) => {
+          const isActionColumn = columnIndex === 0;
+          const isAdminColumn = columnIndex === 1;
+
+          return (
+            <ColumnContent isActionColumn={isActionColumn} rows={actions.length}>
+              {isActionColumn
+                ? actions.map((actionId) => {
+                  const action = actionLookup[actionId];
+
+                  return (
+                    <ActionColumnContent
+                      key={actionId}
+                      isFirst={isActionColumn}
+                      title={action.title}
+                      description={action.description}
+                    />
+                  )
+                })
+                : actions.map(actionId => {
+                  const role = roles[columnIndex - 1];
+
+                  const onToggle = (state: boolean) => {
+                    toggleAction(role?.id, actionId);
+
+                    return state;
+                  }
+
+                  return (
+                    <SwitchColumnContent
+                      isSwitchDisabled={isAdminColumn}
+                      key={`${actionId}`}
+                      checked={role?.actions?.includes(actionId)}
+                      onChange={(s) => onToggle(s)}
+                    />
+                  )
+                })
+              }
+            </ColumnContent>
+          );
+        }}
+      </TableColumns>
+    </>
+  );
+};
