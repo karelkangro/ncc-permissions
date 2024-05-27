@@ -1,83 +1,47 @@
-import { Button, ButtonDark } from "components/Button"
-import { DropdownMenu, InputBase } from "components"
-import styled from "styled-components";
+import { Sidebar } from "components";
+import { Form } from './CreateEditRoleForm.styled'
+import { FormHeader, RoleNameInput, RoleDropdown, FormFooter } from './components'
+import { usePermissionStore, useRoleForm } from "modules/Permissions/hooks";
 
-interface IForm {
-  options: string[];
-  initialSelectedRole: string;
-  isEditing?: boolean;
-  onRoleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCancel: () => void;
-  onSave: () => void;
-  onClose: () => void;
-  roleName: string;
-}
+export const CreateEditRoleForm = () => {
 
-// TODO use form element
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-`
-const Footer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
-  margin-top: auto;
-  border: solid 1px tomato;
-`
-const Title = styled.h2`
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-xs);
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-`
-const CloseButton = styled.button`
-  position: absolute;
-  top: var(--space-1);
-  right: var(--space-1);
-  background: none;
-  border: none;
-  font-size: var(--font-size-lg);
-  cursor: pointer;
-  color: var(--color-text);
-`;
-
-export const CreateEditRoleForm = (
-  {
-    options,
-    initialSelectedRole,
-    onCancel,
-    onSave,
-    isEditing,
+  const { roles, isFormOpen, setIsFormOpen, isEditRoleMode } = usePermissionStore();
+  const {
     roleName,
-    onRoleChange,
-    onNameChange,
-    onClose
-  }: IForm) => (
-  <Content>
-    <div>
-      <Title>{isEditing ? 'Edit role' : 'Create new role'}</Title>
-      <CloseButton onClick={onClose}>&times;</CloseButton>
-      <InputBase
-        label="Role name"
-        placeholder="Name"
-        value={roleName}
-        onChange={onNameChange}
-      />
-      <DropdownMenu
-        label="Exisiting roles to inherit permissions from"
-        options={options}
-        value={initialSelectedRole}
-        onChange={onRoleChange}
-      />
-    </div>
-    <Footer>
-      <ButtonDark onClick={onCancel}>Cancel</ButtonDark>
-      <Button $primary onClick={onSave}>Create</Button>
-    </Footer>
-  </Content>
-)
+    onSetName,
+    onSaveFormData
+  } = useRoleForm();
+
+  const onSubmit = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    onSaveFormData();
+    setIsFormOpen(false);
+  }
+
+  const closeForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | null) => {
+    if (e) e.preventDefault();
+    setIsFormOpen(false);
+  };
+
+  return (
+    <Sidebar isOpen={isFormOpen}>
+      <Form onSubmit={onSubmit}>
+        <FormHeader isEditMode={isEditRoleMode} onClose={closeForm} />
+        <RoleNameInput
+          roleName={roleName}
+          onNameInputChange={onSetName}
+        />
+        <RoleDropdown
+          isEditMode={isEditRoleMode}
+          defaultRole={roles[0].name}
+        />
+        <FormFooter
+          isEditMode={isEditRoleMode}
+          onCancel={() => closeForm(null)}
+        />
+      </Form>
+    </Sidebar>
+  )
+}
