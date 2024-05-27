@@ -41,11 +41,20 @@ const ArrowIcon = styled(ChevronDownIcon)`
   color: var(--color-secondary);
 `;
 
-export const DropdownMenu = ({ label, options, value, onChange }) => (
+interface IDropdownMenu {
+  label?: string;
+  options: {
+    id: string;
+    name: string;
+  }[];
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}
+export const DropdownMenu = ({ label, options, value, onChange } : IDropdownMenu) => (
   <DropdownContainer>
     {label && <DropdownLabel>{label}</DropdownLabel>}
     <DropdownSelect value={value} onChange={onChange}>
-      {options.map((option, index) => (
+      {options?.map((option, index) => (
         <option key={index} value={option.id}>
           {option.name}
         </option>

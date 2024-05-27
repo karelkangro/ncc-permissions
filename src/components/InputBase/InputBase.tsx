@@ -34,7 +34,13 @@ const InputLabel = styled.label`
   margin-bottom: var(--space-15);
 `;
 
-export const InputBase = ({ label, placeholder, value, onChange }) => (
+interface IInputBaseProps {
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+export const InputBase = ({ label, placeholder, value, onChange }: IInputBaseProps) => (
   <InputContainer>
     {label && <InputLabel>{label}</InputLabel>}
     <InputField placeholder={placeholder} value={value} onChange={onChange} />
