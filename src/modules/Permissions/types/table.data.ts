@@ -6,16 +6,15 @@ export interface IAction {
 
 export interface IActionGroup {
   name: string;
-  actions: IAction[];
+  actions: IAction['id'][];
 }
-
-export interface IRoleAction {
-  actionId: number;
-  enabled: boolean;
-}
-
 export interface IRole {
   id: number;
   name: string;
-  actions: IRoleAction[];
+  actions: IAction['id'][];
+}
+
+export interface IData {
+  actionGroups: IActionGroup[];
+  roles: IRole[];
 }
