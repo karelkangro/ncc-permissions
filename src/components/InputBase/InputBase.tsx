@@ -10,7 +10,7 @@ const InputContainer = styled.div`
 
 const InputField = styled.input`
   width: 100%;
-  padding: var(--space-15);
+  padding: var(--space-075);
   font-size: var(--font-size-xxs);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-xxs);
@@ -31,7 +31,7 @@ const InputLabel = styled.label`
   font-size: var(--font-size-xxs);
   line-height: var(--line-height-xxs);
   color: var(--color-secondary);
-  margin-bottom: var(--space-15);
+  margin-bottom: var(--space-075);
 `;
 
 interface IInputBaseProps {

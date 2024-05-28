@@ -5,7 +5,7 @@ export const Button = styled.button<{ $primary?: boolean;}>`
   gap: var(--space-1);
   justify-content: center;
   align-items: center;
-  padding: var(--space-15) var(--space-25);
+  padding: var(--space-075) var(--space-25);
   color: ${({$primary}) => $primary
     ? 'var(--color-text)'
     : 'var(--color-primary)'};

@@ -10,7 +10,7 @@ const DropdownContainer = styled.div`
 
 const DropdownSelect = styled.select`
   width: 100%;
-  padding: var(--space-15);
+  padding: var(--space-075);
   font-size: var(--font-size-xxs);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height-xxs);

@@ -31,8 +31,8 @@ export const Input = styled.input`
 `;
 
 export const Switch = styled.div<{ $isOn: boolean, $disabled?: boolean }>`
-  width: var(--space-15);
-  height: var(--space-15);
+  width: var(--space-075);
+  height: var(--space-075);
   position: absolute;
   top: var(--space-01);
   left: ${({ $isOn }) => (

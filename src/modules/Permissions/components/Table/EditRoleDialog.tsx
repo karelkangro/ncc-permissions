@@ -8,7 +8,7 @@ import { usePermissionStore } from 'modules/Permissions/hooks';
 const DotsIconStyled = styled(DotsVerticalIcon)`
   position: relative;
   cursor: pointer;
-  margin-left: var(--space-15);
+  margin-left: var(--space-075);
   flex-shrink: 0;
 `;
 

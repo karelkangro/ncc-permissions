@@ -7,7 +7,7 @@ const Menu = styled.div`
   display: flex;
   flex-direction: column;
   padding: var(--space-3) var(--space-2);
-  gap: var(--space-15);
+  gap: var(--space-075);
   background-color: var(--color-bg-dark);
 `
 

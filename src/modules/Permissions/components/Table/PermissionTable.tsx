@@ -10,7 +10,7 @@ const TableScrollContainer = styled.div`
 
 const ScrollableTable = styled.div<{ cols: number }>`
   display: grid;
-  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.cols - 1}, minmax(var(--space-13), var(--space-13)));
+  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.cols - 1}, minmax(var(--space-20), var(--space-20)));
   overflow-x: auto;
   max-width: 100%;
   border-top-left-radius: var(--radius-xs);

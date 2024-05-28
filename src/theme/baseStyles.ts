@@ -82,7 +82,7 @@ export const BaseStyles = createGlobalStyle`
     --space-025: 0.25rem;
     --space-05: 0.375rem;
     --space-1: 0.5rem;
-    --space-15: 0.75rem;
+    --space-075: 0.75rem;
     --space-2: 1rem;
     --space-25: 1.25rem;
     --space-3: 1.5rem;
@@ -91,8 +91,7 @@ export const BaseStyles = createGlobalStyle`
     --space-6: 3rem;
     --space-8: 4rem;
     --space-10: 5rem;
-    --space-12: 6rem;
-    --space-13: 7.5rem;
+    --space-20: 7.5rem;
 
     /** Z-index **/
     --zindex-navbar: 1010;
