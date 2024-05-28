@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { SwitchButton } from "components/SwitchButton";
+import { TooltipBase } from "components";
 
 const SwitchColumnContentWrapper = styled.div`
   display: flex;
@@ -11,19 +12,34 @@ const SwitchColumnContentWrapper = styled.div`
 interface ISwitchColumnContentProps {
   checked: boolean;
   isSwitchDisabled: boolean;
-  onChange: (checked: boolean) => void;
+  onSwitchChange: (checked?: boolean) => void;
 }
 
 export const SwitchColumnContent = (
   { isSwitchDisabled,
     checked,
-    onChange
+    onSwitchChange
   }: ISwitchColumnContentProps) => (
   <SwitchColumnContentWrapper>
-    <SwitchButton
-      checked={checked}
-      disabled={isSwitchDisabled}
-      onChange={onChange}
-    />
+    {isSwitchDisabled
+      ? (
+          <TooltipBase
+            trigger={
+              <SwitchButton
+                checked={checked}
+                disabled={isSwitchDisabled}
+                onChange={onSwitchChange}
+              />
+            }
+            content="Admin permissions are not editable"
+          />
+        )
+      : (
+        <SwitchButton
+          checked={checked}
+          disabled={isSwitchDisabled}
+          onChange={onSwitchChange}
+        />
+    )}
   </SwitchColumnContentWrapper>
-);
+  );
