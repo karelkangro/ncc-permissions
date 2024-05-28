@@ -18,7 +18,7 @@ export interface IMenuItem {
 export const menuItems: IMenuItem[] = [
   {
     name: 'COMPANY',
-    route: '/settings',
+    route: null,
     icon: null,
     subMenuItems: [
       {
@@ -60,7 +60,7 @@ export const menuItems: IMenuItem[] = [
   },
   {
     name: 'PERSONAL',
-    route: '/settings',
+    route: null,
     icon: null,
     subMenuItems: [
       {
