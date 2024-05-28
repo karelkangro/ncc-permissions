@@ -17,13 +17,17 @@ interface IActionRows {
 const ColumnContent = styled.div<{ rows: number; isActionColumn: boolean }>`
   display: grid;
   grid-template-rows: repeat(${props => props.rows - 1}, 1fr);
-  border-right: ${props => (props.isActionColumn ? 'solid 1px var(--color-border)' : 'none')};
+  border: ${props => (props.isActionColumn
+    ? 'solid 1px var(--color-border)'
+    : 'none')
+  };
+  border-top: none;
+  border-bottom: none;
 `;
 
 const GroupTitle = styled.div`
   display: grid;
   grid-column: 1 / -1;
-  padding: var(--space-2);
   padding-top: var(--space-25);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
@@ -31,6 +35,19 @@ const GroupTitle = styled.div`
   color: var(--color-secondary);
   border-left: solid 1px var(--color-border);
   border-right: solid 1px var(--color-border);
+`;
+
+const GroupTitleChildren = styled.div<{ columns: number; isActionColumn?: boolean }>`
+  display: grid;
+  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.columns - 1}, minmax(var(--space-13), var(--space-13)));
+  margin-top: -1.2rem;
+
+  & > div: not(:last-child) {
+    padding: 0;
+    margin: 0;
+    border-right: solid 1px var(--color-border)
+    
+  }
 `;
 
 export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }) => {
@@ -43,7 +60,14 @@ export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }
 
   return (
     <>
-      <GroupTitle>{title}</GroupTitle>
+      <GroupTitle>
+        <GroupTitleChildren columns={columns}>
+          <div>{title}</div>
+          {[...Array(columns - 1).keys()].map(col => (
+            <div key={col}></div>
+          ))}
+        </GroupTitleChildren>
+      </GroupTitle>
       <TableColumns columns={columns}>
         {(columnIndex: number) => {
           const isActionColumn = columnIndex === 0;

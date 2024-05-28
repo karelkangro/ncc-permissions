@@ -7,3 +7,4 @@ export * from './Dialog';
 export * from './Sidebar';
 export * from './DropdownMenu';
 export * from './InputBase';
+export * from './Tooltip';
