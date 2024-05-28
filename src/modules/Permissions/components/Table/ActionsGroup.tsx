@@ -25,10 +25,9 @@ const ColumnContent = styled.div<{ rows: number; isActionColumn: boolean }>`
   border-bottom: none;
 `;
 
-const GroupTitle = styled.div`
+const GroupHeaderRow = styled.div`
   display: grid;
   grid-column: 1 / -1;
-  padding-top: var(--space-25);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-xxs);
@@ -37,18 +36,22 @@ const GroupTitle = styled.div`
   border-right: solid 1px var(--color-border);
 `;
 
-const GroupTitleChildren = styled.div<{ columns: number; isActionColumn?: boolean }>`
+const GroupTitleColumns = styled.div<{ columns: number; isActionColumn?: boolean }>`
   display: grid;
-  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.columns - 1}, minmax(var(--space-13), var(--space-13)));
-  margin-top: -1.2rem;
-
-  & > div: not(:last-child) {
-    padding: 0;
-    margin: 0;
-    border-right: solid 1px var(--color-border)
-    
+  grid-template-columns: minmax(50vw, 1fr) repeat(${props => props.columns - 1}, minmax(var(--space-20), var(--space-20)));
+  & > div:not(:last-child)  {
+    padding: 1rem;
+    padding-left: var(--space-075);
+    border-right: solid 1px var(--color-border);
   }
 `;
+
+const GroupTitleCol = styled.div`
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-xxs);
+  color: var(--color-secondary);
+`;
+
 
 export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }) => {
   const { toggleAction } = usePermissionStore();
@@ -60,14 +63,14 @@ export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }
 
   return (
     <>
-      <GroupTitle>
-        <GroupTitleChildren columns={columns}>
-          <div>{title}</div>
+      <GroupHeaderRow>
+        <GroupTitleColumns columns={columns}>
+          <GroupTitleCol>{title}</GroupTitleCol>
           {[...Array(columns - 1).keys()].map(col => (
             <div key={col}></div>
           ))}
-        </GroupTitleChildren>
-      </GroupTitle>
+        </GroupTitleColumns>
+      </GroupHeaderRow>
       <TableColumns columns={columns}>
         {(columnIndex: number) => {
           const isActionColumn = columnIndex === 0;
@@ -91,7 +94,7 @@ export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }
                 : actions.map(actionId => {
                   const role = roles[columnIndex - 1];
 
-                  const onToggle = (state: boolean) => {
+                  const onToggle = (state?: boolean) => {
                     toggleAction(role?.id, actionId);
 
                     return state;
@@ -102,7 +105,7 @@ export const ActionsGroup: FC<IActionRows> = ({ columns, title, actions, roles }
                       isSwitchDisabled={isAdminColumn}
                       key={`${actionId}`}
                       checked={role?.actions?.includes(actionId)}
-                      onChange={(s) => onToggle(s)}
+                      onSwitchChange={() => onToggle()}
                     />
                   )
                 })
